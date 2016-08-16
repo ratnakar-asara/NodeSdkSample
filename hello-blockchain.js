@@ -42,7 +42,7 @@ chain.enroll("test_user0", "MS9qrN8hFjlE", function(err, user1) {
             console.log("Enrolled test_user2 successfully\n");
 
             chain.setDeployWaitTime(60);
-            //chain.setInvokeWaitTime(10);
+            chain.setInvokeWaitTime(10);
             deployChaincode(user);
         });
     });

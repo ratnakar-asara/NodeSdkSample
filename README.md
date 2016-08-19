@@ -14,7 +14,7 @@ chain.enroll("test_user0", "MS9qrN8hFjlE", cb); // *cb - callback function
 * registerAndEnroll
 
 ```
-var registrationRequest = {
+        var registrationRequest = {
             enrollmentID: userName,
             account: "group1",
             affiliation: "00001"
@@ -74,3 +74,28 @@ var registrationRequest = {
     queryTx.on('complete', cb);
     queryTx.on('error', cb);
 ```
+
+* Install `hfc` with `npm install` command
+  
+  ```
+  npm install hfc
+  ```
+  
+  if you want to install specific version as below , hfc@0.5.0
+  
+  ```
+  npm install hfc@0.5.0
+  ```
+  
+* Excute the program using the below command
+  ```
+  node hello-blockchain.js
+  ```
+
+##NOTE: 
+   * As a pre-requisite you must install **NodeJS**
+   * You must have a `Fabric Network Setup` to start using the hfc apis
+
+##Troubleshoot:
+   * Change the port numbers if you face issues while deploying chaincode
+      

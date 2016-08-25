@@ -1,6 +1,6 @@
 // Include the package from npm:
-//var hfc = require('hfc');
-var hfc = require('../..');
+var hfc = require('hfc');
+//var hfc = require('../..');
 var util = require('util');
 var fs = require('fs');
 

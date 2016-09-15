@@ -10,7 +10,7 @@ var chain = hfc.newChain("targetChain");
 // Configure the KeyValStore which is used to store sensitive keys
 // as so it is important to secure this storage.
 // do a mkdir ~/tmp  (dont check if fails..just so it is there
-chain.setKeyValStore(hfc.newFileKeyValStore('/tmp/keyValStore'));
+chain.setKeyValStore(hfc.newFileKeyValStore('./keyValStore'));
 
 chain.setMemberServicesUrl("grpc://localhost:50051");
 var peer = chain.addPeer("grpc://localhost:30303");
@@ -19,40 +19,36 @@ var testChaincodeID;
 
 // Enroll "admin" which is already registered because it is
 // listed in fabric/membersrvc/membersrvc.yaml with it's one time password.
-chain.enroll("test_user0", "MS9qrN8hFjlE", function(err, user1) {
-    if (err) return console.log(util.format("ERROR: failed to register test_user0, Error : %j \n", err));
+chain.enroll("admin", "Xurw3yU9zI0l", function(err, user1) {
+    if (err) return console.log(util.format("ERROR: failed to register admin, Error : %j \n", err));
     // Set this user as the chain's registrar which is authorized to register other users.
     chain.setRegistrar(user1);
 
-    console.log("\nEnrolled test_user0 successfully\n");
+    console.log("\nEnrolled admin successfully\n");
 
-    var userName = "test_user1";
-    chain.enroll(userName, "jGlNl6ImkuDo", function(err, user2) {
-        if (err) return console.log(util.format("ERROR: failed to register test_user1 , Error : %s\n", err));
-
+    var userName = "JohnDoe";
         // registrationRequest
         var registrationRequest = {
             enrollmentID: userName,
-            account: "group1",
+            account: "bank_a",
             affiliation: "00001"
         };
         chain.registerAndEnroll(registrationRequest, function(err, user) {
             if (err) throw Error(" Failed to register and enroll " + userName + ": " + err);
 
-            console.log("Enrolled test_user2 successfully\n");
+            console.log("Enrolled %s successfully\n", userName);
 
             chain.setDeployWaitTime(60);
             chain.setInvokeWaitTime(10);
             deployChaincode(user);
         });
-    });
 });
 
 function deployChaincode(user) {
     console.log(util.format("Deploying chaincode ... It will take about %j seconds to deploy \n", chain.getDeployWaitTime()))
         // Construct the deploy request
     var deployRequest = {
-        chaincodePath: "github.com/chaincode_example02/",
+        chaincodePath: "chaincode_example02",
         // Function to trigger
         fcn: "init",
         // Arguments to the initializing function

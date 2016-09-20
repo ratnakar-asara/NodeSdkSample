@@ -1,0 +1,38 @@
+{
+  "chainName" : "client1",
+  "KeyValStore" :"keyValStore",
+  "deployWaitTime": "60",
+  "certPath" : "/var/hyperledger/production/.membersrvc/tlsca.cert",
+  "ca": {
+    "ca_url":"grpcs://tlsca:7054"
+  },
+  "peers":{
+      "name":"vp0",
+      "peer_url":"grpcs://tlsca:7051"
+    },
+  "users": [
+    {
+      "username":"admin",
+      "secret":"Xurw3yU9zI0l",
+      "affiliation": "bank_a"
+    },
+    {
+      "username":"JohnDoe",
+      "secret":"",
+      "affiliation": "bank_a"
+    }
+  ],
+  "deployRequest":{
+    "chaincodePath":"chaincode_example02",
+    "functionName":"init",
+    "args":["a","100","b","200"]
+  },
+  "invokeRequest":{
+    "functionName":"invoke",
+    "args":["a","b","10"]
+  },
+  "queryRequest":{
+    "functionName":"query",
+    "args":["a"]
+  }
+}

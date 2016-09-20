@@ -1,8 +1,11 @@
 // Include the package from npm:
 var hfc = require('hfc');
-//var hfc = require('../..');
 var util = require('util');
 var fs = require('fs');
+
+// Get the peer and member services addresses
+var PEER_ADDRESS         = process.env.PEER_ADDRESS;
+var MEMBERSRVC_ADDRESS   = process.env.MEMBERSRVC_ADDRESS;
 
 // Create a client chain.
 var chain = hfc.newChain("targetChain");
@@ -12,8 +15,8 @@ var chain = hfc.newChain("targetChain");
 // do a mkdir ~/tmp  (dont check if fails..just so it is there
 chain.setKeyValStore(hfc.newFileKeyValStore('./keyValStore'));
 
-chain.setMemberServicesUrl("grpc://localhost:50051");
-var peer = chain.addPeer("grpc://localhost:30303");
+chain.setMemberServicesUrl("grpc://" + MEMBERSRVC_ADDRESS);
+var peer = chain.addPeer("grpc://" + PEER_ADDRESS);
 
 var testChaincodeID;
 

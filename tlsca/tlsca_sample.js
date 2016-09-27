@@ -23,11 +23,13 @@ chain.addPeer(config.peers.peer_url, {
     pem: certFile
 });
 
-process.env['GOPATH']= __dirname;
-var ccPath = process.env['GOPATH'] + "/src/"+config.deployRequest.chaincodePath
+process.env['GOPATH'] = __dirname;
+var ccPath = process.env['GOPATH'] + "/src/" + config.deployRequest.chaincodePath
 var chaincodeIDPath = __dirname + "/chaincodeID";
+var deployerName = config.users[1].username;
 var testChaincodeID;
 var deployer;
+
 if (process.argv.length == 4) {
     if (process.argv[2] == "--clean") {
         if (process.argv[3] == "chaincode" && fs.existsSync(chaincodeIDPath)) {
@@ -58,38 +60,47 @@ if (process.argv.length == 4) {
     process.exit(2)
 }
 
-// Enroll "admin" which is already registered because it is
-// listed in fabric/membersrvc/membersrvc.yaml with it's one time password.
-chain.enroll(config.users[0].username, config.users[0].secret, function(err, admin) {
-    if (err) return console.log(util.format("ERROR: failed to register admin, Error : %j \n", err));
-    // Set this user as the chain's registrar which is authorized to register other users.
-    chain.setRegistrar(admin);
+init();
 
-    console.log("\nEnrolled admin successfully\n");
-    var userName = config.users[1].username;
-    // registrationRequest
-    var registrationRequest = {
-        enrollmentID: userName,
-        affiliation: config.users[1].affiliation
-    };
-    chain.registerAndEnroll(registrationRequest, function(err, user) {
-        if (err) throw Error(" Failed to register and enroll " + userName + ": " + err);
-        deployer = user;
-        console.log("Enrolled %s successfully\n", userName);
-
-        if (!fileExists(chaincodeIDPath)) {
-            chain.setDeployWaitTime(config.deployWaitTime);
-	    fs.writeFileSync(ccPath + '/certificate.pem', fs.readFileSync(config.certPath));
-    	    setTimeout(function() {
-        	deployChaincode();
-            }, 1000);
-        } else {
-            // Read chaincodeID and use this for sub sequent Invoke/Queries
-            testChaincodeID = fs.readFileSync(chaincodeIDPath, 'utf8')
+function init() {
+    //Avoid enroll and deploy if chaincode already deployed
+    if (!fileExists(chaincodeIDPath)) {
+        registerAndEnrollUsers();
+    } else {
+        // Read chaincodeID and use this for sub sequent Invokes/Queries
+        testChaincodeID = fs.readFileSync(chaincodeIDPath, 'utf8');
+        chain.getUser(deployerName, function(err, member) {
+            if (err) throw Error(" Failed to register and enroll " + deployerName + ": " + err);
+            deployer = member;
             invoke();
-        }
+        });
+    }
+}
+
+function registerAndEnrollUsers() {
+    // Enroll "admin" which is already registered because it is
+    // listed in fabric/membersrvc/membersrvc.yaml with it's one time password.
+    chain.enroll(config.users[0].username, config.users[0].secret, function(err, admin) {
+        if (err) return console.log(util.format("ERROR: failed to register admin, Error : %j \n", err));
+        // Set this user as the chain's registrar which is authorized to register other users.
+        chain.setRegistrar(admin);
+
+        console.log("\nEnrolled admin successfully\n");
+        var userName = config.users[1].username;
+        // registrationRequest
+        var registrationRequest = {
+            enrollmentID: userName,
+            affiliation: config.users[1].affiliation
+        };
+        chain.registerAndEnroll(registrationRequest, function(err, user) {
+            if (err) throw Error(" Failed to register and enroll " + deployerName + ": " + err);
+            deployer = user;
+            console.log("Enrolled %s successfully\n", deployerName);
+            //chain.setDeployWaitTime(config.deployWaitTime);
+            deployChaincode();
+        });
     });
-});
+}
 
 function deployChaincode() {
     console.log(util.format("Deploying chaincode ... It will take about %j seconds to deploy \n", chain.getDeployWaitTime()))

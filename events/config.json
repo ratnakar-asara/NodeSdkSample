@@ -1,0 +1,42 @@
+{
+  "chainName" : "client1",
+  "KeyValStore" :"keyValStore",
+  "deployWaitTime": "30",
+  "ca": {
+    "ca_url":"grpc://localhost:7054"
+  },
+  "peers":[
+    {
+      "name":"vp0",
+      "peer_url":"grpc://localhost:7051"
+    }
+  ],
+  "events": {
+	"events_url":"localhost:7053"
+  },
+  "users": [
+    {
+      "username":"admin",
+      "secret":"Xurw3yU9zI0l",
+      "affiliation": "bank_a"
+    },
+    {
+      "username":"JohnDoe",
+      "secret":"",
+      "affiliation": "bank_a"
+    }
+  ],
+  "deployRequest":{
+    "chaincodePath":"eventsender",
+    "functionName":"init",
+    "args":[]
+  },
+  "invokeRequest":{
+    "functionName":"invoke",
+    "args":["hello","world"]
+  },
+  "queryRequest":{
+    "functionName":"query",
+    "args":[]
+  }
+}

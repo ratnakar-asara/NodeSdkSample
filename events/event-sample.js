@@ -20,8 +20,8 @@ for (var i = 0; i < config.peers.length; i++) {
     chain.addPeer(config.peers[i].peer_url);
 }
 chain.eventHubConnect(config.events.events_url);
-process.env['GOPATH']= __dirname;
-var ccPath = process.env['GOPATH'] + "/src/"+config.deployRequest.chaincodePath
+process.env['GOPATH'] = __dirname;
+var ccPath = process.env['GOPATH'] + "/src/" + config.deployRequest.chaincodePath
 
 process.on('exit', function() {
     chain.eventHubDisconnect();
@@ -69,11 +69,11 @@ function init() {
     } else {
         // Read chaincodeID and use this for sub sequent Invokes/Queries
         testChaincodeID = fs.readFileSync(chaincodeIDPath, 'utf8');
-	chain.getUser(deployerName, function(err, member){
-		if (err) throw Error(" Failed to register and enroll " + deployerName + ": " + err);
-		deployer = member;
-		invoke();
-	});
+        chain.getUser(deployerName, function(err, member) {
+            if (err) throw Error(" Failed to register and enroll " + deployerName + ": " + err);
+            deployer = member;
+            invoke();
+        });
     }
 }
 
@@ -145,8 +145,8 @@ function invoke() {
         // Parameters for the invoke function
         args: args
     };
-    var regid = eh.registerChaincodeEvent(testChaincodeID, "custom-event", function(event) {
-        console.log(util.format("Custom event received, payload: %j", event.payload.toString()));
+    var regid = eh.registerChaincodeEvent(testChaincodeID, "evtsender", function(event) {
+        console.log(util.format("Custom event received, payload: %j\n", event.payload.toString()));
         eh.unregisterChaincodeEvent(regid);
     });
 

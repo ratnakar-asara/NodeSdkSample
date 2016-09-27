@@ -23,12 +23,12 @@ chain.addPeer(config.peers.peer_url, {
     pem: certFile
 });
 
-process.env['GOPATH'] = __dirname;
-var ccPath = process.env['GOPATH'] + "/src/" + config.deployRequest.chaincodePath
+process.env['GOPATH']= __dirname;
+var ccPath = process.env['GOPATH'] + "/src/"+config.deployRequest.chaincodePath
 var chaincodeIDPath = __dirname + "/chaincodeID";
-var deployerName = config.users[1].username;
 var testChaincodeID;
 var deployer;
+var deployerName = config.users[1].username;
 
 if (process.argv.length == 4) {
     if (process.argv[2] == "--clean") {
@@ -81,15 +81,15 @@ function registerAndEnrollUsers() {
     // Enroll "admin" which is already registered because it is
     // listed in fabric/membersrvc/membersrvc.yaml with it's one time password.
     chain.enroll(config.users[0].username, config.users[0].secret, function(err, admin) {
-        if (err) return console.log(util.format("ERROR: failed to register admin, Error : %j \n", err));
+        if (err) throw Error(util.format("ERROR: failed to register %j, Error : %j \n", config.users[0].username, err));
         // Set this user as the chain's registrar which is authorized to register other users.
         chain.setRegistrar(admin);
 
-        console.log("\nEnrolled admin successfully\n");
-        var userName = config.users[1].username;
+        console.log("\nEnrolled %s successfully\n", config.users[0].username);
+
         // registrationRequest
         var registrationRequest = {
-            enrollmentID: userName,
+            enrollmentID: deployerName,
             affiliation: config.users[1].affiliation
         };
         chain.registerAndEnroll(registrationRequest, function(err, user) {

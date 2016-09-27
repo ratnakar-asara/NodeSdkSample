@@ -11,6 +11,10 @@ cd /opt/gopath/src/github.com/hyperledger/fabric
 
 git clone https://github.com/ratnakar-asara/NodeSdkSample.git
 
+cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample
+
+npm install hfc@0.6.1
+
 cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample/tlsca/src/chaincode_example02
 
 unzip vendor.zip  
@@ -20,7 +24,7 @@ rm vendor.zip
 ```
 
 ## Step 3: 
-Modify **/etc/hosts** file by appending a new entry **tlsca** 
+Modify **/etc/hosts** file by appending a new alias entry **tlsca** 
 
 `sudo vi /etc/hosts`
 
@@ -36,7 +40,7 @@ Start member service and a single peer with below commands  :
 MEMBERSRVC_CA_SERVER_TLS_CERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert MEMBERSRVC_CA_SERVER_TLS_KEY_FILE=/var/hyperledger/production/.membersrvc/tlsca.priv membersrvc
 
 
-CORE_PEER_TLS_ENABLED=true CORE_PEER_TLS_CERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert  CORE_PEER_TLS_KEY_FILE=$SDK_CA_KEY_FILE  CORE_PEER_TLS_SERVERHOSTOVERRIDE=tlsca CORE_PEER_PKI_TLS_ENABLED=true CORE_PEER_PKI_TLS_ROOTCERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert CORE_PEER_PKI_TLS_SERVERHOSTOVERRIDE=tlsca peer node start
+CORE_PEER_TLS_ENABLED=true CORE_PEER_TLS_CERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert  CORE_PEER_TLS_KEY_FILE=/var/hyperledger/production/.membersrvc/tlsca.priv  CORE_PEER_TLS_SERVERHOSTOVERRIDE=tlsca CORE_PEER_PKI_TLS_ENABLED=true CORE_PEER_PKI_TLS_ROOTCERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert CORE_PEER_PKI_TLS_SERVERHOSTOVERRIDE=tlsca peer node start
 ```
 
 ##Step 5:

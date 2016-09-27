@@ -1,8 +1,10 @@
-# tlasca sample
+# A sample node program in tls enabled environment
+
+This Program is to demonstrate running a node program with TLS enabled local environment
+
+**This program is made to run inside Vagrant environment**
 
 ## Step1 : 
-
-**This script is made to run the node program in Vagrant environment**
 
 `vagrant ssh`
 
@@ -74,3 +76,22 @@ completed chaincode invoke transaction: request={"chaincodeID":"827bdb5ad53bbc86
 
 Successfully queried  chaincode function: request={"chaincodeID":"827bdb5ad53bbc866565c77662abccfb5ddc815ef6ad61e4e6713f80be506f52","fcn":"query","args":["a"]}, value=90 
 ```
+
+##Troubleshoot
+
+If you see the below error, which means you would have started a new network 
+
+```
+
+Failed to submit chaincode invoke transaction: request={"chaincodeID":"9f2825175e9f1b60b2a4528a7278e3d2ba8726e4cd8cab6e203fdf2403a1bd9f","fcn":"invoke","args":["a","b","10"]},":{"_internal_repr":{}}},"msg":"Error: sql: no rows in result set"}
+
+```
+
+To solve the problem you need to clean crypto secret keys generated under keyValStore folder and also chaincodeID
+Below command should fix that for you
+
+`$ node tlsca_sample.js --clean --all`
+
+and then start the node program by issueing the below command
+
+`$ node tlsca_sample.js`

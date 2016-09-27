@@ -2,6 +2,8 @@
 
 ## Step1 : 
 
+**This script is made to run the node program in Vagrant environment**
+
 `vagrant ssh`
 
 ## Step 2 :

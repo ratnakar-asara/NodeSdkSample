@@ -13,12 +13,14 @@ git clone https://github.com/ratnakar-asara/NodeSdkSample.git
 
 cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample/tlsca/src/chaincode_example02
 
-extract vendor.zip and **delete** vendor.zip
+unzip vendor.zip  
+
+rm vendor.zip
 
 ```
 
 ## Step 3: 
-Change the **/etc/hosts** file by adding a new entry **tlsca**
+Modify **/etc/hosts** file by appending a new entry **tlsca** 
 
 `sudo vi /etc/hosts`
 

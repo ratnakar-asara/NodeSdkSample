@@ -59,6 +59,10 @@ cd /opt/gopath/src/github.com/hyperledger/fabric
 
 git clone https://github.com/ratnakar-asara/NodeSdkSample.git
 
+cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample
+
+npm install hfc
+
 cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample/events/src/eventsender
 
 unzip vendor.zip 

@@ -12,7 +12,7 @@
     }
   ],
   "events": {
-	"events_url":"localhost:7053"
+	"events_url":"grpc://localhost:7053"
   },
   "users": [
     {

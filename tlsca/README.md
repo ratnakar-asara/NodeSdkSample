@@ -17,16 +17,21 @@ git clone https://github.com/ratnakar-asara/NodeSdkSample.git
 
 cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample
 
-npm install hfc@0.6.1
+npm install hfc@0.6.5
 
 cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample/tlsca/src/chaincode_example02
 
-unzip vendor.zip  
+unzip vendor.zip
 
 rm vendor.zip
 
 ```
+####NOTE:
+ Make sure you install the latest version hfc0.6.*
+ you can check the latest version of hfc node module by issuing the below command
 
+ `npm show hfc@* version`
+ 
 ## Step 3: 
 Modify **/etc/hosts** file by appending a new alias entry **tlsca** 
 
@@ -87,7 +92,7 @@ Failed to submit chaincode invoke transaction: request={"chaincodeID":"9f2825175
 
 ```
 
-To solve the problem you need to clean crypto secret keys generated under keyValStore folder and also chaincodeID
+To solve the above problem you might need consider cleaning the crypto materials generated under keyValStore folder (member.<username>) and also chaincodeID
 Below command should fix that for you
 
 `$ node tlsca_sample.js --clean --all`

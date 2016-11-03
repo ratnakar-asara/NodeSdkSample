@@ -51,16 +51,18 @@ make peer
 
 make membersrvc
 
-MEMBERSRVC_CA_SERVER_TLS_CERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert MEMBERSRVC_CA_SERVER_TLS_KEY_FILE=/var/hyperledger/production/.membersrvc/tlsca.priv membersrvc
+MEMBERSRVC_CA_SECURITY_TLS_ENABLED=true MEMBERSRVC_CA_SECURITY_SERVERHOSTOVERRIDE=tlsca MEMBERSRVC_CA_SECURITY_CLIENT_CERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert MEMBERSRVC_CA_SERVER_TLS_CERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert MEMBERSRVC_CA_SERVER_TLS_KEY_FILE=/var/hyperledger/production/.membersrvc/tlsca.priv membersrvc
 
 CORE_PEER_TLS_ENABLED=true CORE_PEER_TLS_CERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert  CORE_PEER_TLS_KEY_FILE=/var/hyperledger/production/.membersrvc/tlsca.priv  CORE_PEER_TLS_SERVERHOSTOVERRIDE=tlsca CORE_PEER_PKI_TLS_ENABLED=true CORE_PEER_PKI_TLS_ROOTCERT_FILE=/var/hyperledger/production/.membersrvc/tlsca.cert CORE_PEER_PKI_TLS_SERVERHOSTOVERRIDE=tlsca peer node start
 ```
 
 ##Step 5:
-Start your node program 
-
+Start your node program
+Please note, running node program can be done outside vagrant aswell, however you would require to copy the certificate from vagrant environment
 ```
 cd /opt/gopath/src/github.com/hyperledger/fabric/NodeSdkSample/tlsca
+
+cp /var/hyperledger/production/.membersrvc/tlsca.cert src/chaincode_example02/certificate.pem
 
 $ node tlsca_sample.js
 ```

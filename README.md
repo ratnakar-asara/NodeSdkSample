@@ -23,29 +23,7 @@ A sample program to demonstrate apis Enroll, enroll and register new user, Deplo
 ###1. V0.6/hello-blockchain_V0_6.js
 A sample program to demonstrate apis Enroll, enroll and register new user, Deploy , Invoke and Query (chaincode_example02)
 
-* Install `hfc` with `npm install` command
-  
-  ```
-  npm install hfc@0.6.x
-  ```
-  
-  Current latest version is hfc@0.6.1
-  
-* Excute the program using the below command
-  ```
-  node hello-blockchain_V0_6.js
-  ```
-
-* To clean the keyValStore and chaincodeID
-  ```
-  node hello-blockchain_V0_6.js --clean [chaincode|all]
-  
-  To clean chaincode and start the deploy again
-        node hello-blockchain_V0_6.js --clean chaincode 
-  To clean chaincode and keyValStore values
-        node hello-blockchain_V0_6.js --clean all 
-
-  ```
+Follow the instructions mentioned [here](https://github.com/ratnakar-asara/NodeSdkSample/tree/master/V0.6)
 
 ###2. tlsca/tlsca_sample.js
 

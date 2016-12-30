@@ -3,7 +3,7 @@ var hfc = require('hfc');
 var util = require('util');
 var fs = require('fs');
 
-
+process.env.GOPATH = __dirname;
 var config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 

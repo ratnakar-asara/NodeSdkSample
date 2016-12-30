@@ -1,27 +1,27 @@
 {
-  "chainName" : "client1",
+  "chainName" : "chain1",
   "KeyValStore" :"keyValStore",
   "deployWaitTime": "60",
   "invokeWaitTime": "10",
   "ca": {
-    "ca_url":"grpc://172.17.0.2:7054"
+    "ca_url":"grpc://localhost:7054"
   },
   "peers":[
     {
       "name":"vp0",
-      "peer_url":"grpc://172.17.0.3:7051"
+      "peer_url":"grpc://localhost:7051"
     },
     {
       "name":"vp1",
-      "peer_url":"grpc://172.17.0.4:7051"
+      "peer_url":"grpc://localhost:8051"
     },
     {
       "name":"vp2",
-      "peer_url":"grpc://172.17.0.5:7051"
+      "peer_url":"grpc://localhost:9051"
     },
     {
       "name":"vp3",
-      "peer_url":"grpc://172.17.0.6:7051"
+      "peer_url":"grpc://localhost:10051"
     }
   ],
   "users": [
